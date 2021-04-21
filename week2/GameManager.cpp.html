@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#include "GameManager.h"</div>
+<div>#include "Random.h"</div>
+<div></div>
+<div>&nbsp;GameManager::GameManager(int totalDoorsToGenerate)</div>
+<div>{</div>
+<div>totalDoors = totalDoorsToGenerate;</div>
+<div>openedDoors = 0;</div>
+<div></div>
+<div>//allocate memory</div>
+<div>doors = new Door[totalDoors];</div>
+<div></div>
+<div>for (int i = 0; i &lt; totalDoorsToGenerate; i++)</div>
+<div>{</div>
+<div>DOOR_TYPE dt = (DOOR_TYPE) GEP::RandomRange(0, 1);</div>
+<div></div>
+<div>int randVal = 0;</div>
+<div>if (dt == 0)//treasure type</div>
+<div>randVal = GEP::RandomRange(100, 500);</div>
+<div>else //generate enemy damage</div>
+<div>randVal = GEP::RandomRange(10, 30);</div>
+<div></div>
+<div>doors[i].InitializeDoor(dt, randVal);</div>
+<div>}</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>&nbsp;GameManager::~GameManager()</div>
+<div>&nbsp;{</div>
+<div>delete[] doors;</div>
+<div>doors = nullptr;</div>
+<div>&nbsp;}</div>
+<div></div>
+<div></div>
+<div>&nbsp;void GameManager::PrintAllDoors()</div>
+<div>&nbsp;{</div>
+<div>for (int i = 0; i &lt; totalDoors; i++)</div>
+<div>doors[i].Print();</div>
+<div></div>
+<div>&nbsp;}</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

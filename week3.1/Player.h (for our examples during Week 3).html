@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>int serialNumber = 1;</div>
+<div></div>
+<div>class Player</div>
+<div>{</div>
+<div>int playerInstanceID;</div>
+<div></div>
+<div>public:&nbsp;</div>
+<div>//constructor</div>
+<div>Player()</div>
+<div>{</div>
+<div>playerInstanceID = serialNumber++;</div>
+<div>cout &lt;&lt; "Player: " &lt;&lt; playerInstanceID &lt;&lt; " created..\n";</div>
+<div>&nbsp; &nbsp;&nbsp;</div>
+<div>}</div>
+<div>//destructor</div>
+<div>~Player()</div>
+<div>{</div>
+<div>cout &lt;&lt; "Player: " &lt;&lt; playerInstanceID &lt;&lt; " destroyed..\n";</div>
+<div>}</div>
+<div>//for debug and demo purposes.. to print the player instance number</div>
+<div>string ToString()</div>
+<div>{</div>
+<div>return "Player " + std::to_string(playerInstanceID) + "\n";</div>
+<div>}</div>
+<div></div>
+<div>};</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include "Door.h"</div>
+<div>#include "Random.h"</div>
+<div>#include "Player.h"</div>
+<div></div>
+<div>class GameManager</div>
+<div>{</div>
+<div>private:</div>
+<div>Door * doors; //dynamically allocated array of doors</div>
+<div>int totalDoors; //how many doors in the game?</div>
+<div>int openedDoors; //how many doors opened?</div>
+<div></div>
+<div>Player *player;&nbsp;</div>
+<div></div>
+<div>bool isGameOver;</div>
+<div>public:</div>
+<div>GameManager(int totalDoorsToGenerate)</div>
+<div>{</div>
+<div>totalDoors = totalDoorsToGenerate;</div>
+<div>openedDoors = 0;</div>
+<div></div>
+<div>doors = new Door[totalDoors]; //allocate memory&nbsp;</div>
+<div>for (int i = 0; i &lt; totalDoorsToGenerate; i++)</div>
+<div>{</div>
+<div>DOOR_TYPE dt = (DOOR_TYPE)GEP::RandomRange(0, 1);</div>
+<div>int randVal = 0;</div>
+<div>if (dt == 0)</div>
+<div>randVal = GEP::RandomRange(20, 60);</div>
+<div>else</div>
+<div>randVal = GEP::RandomRange(10, 30);</div>
+<div></div>
+<div>doors[i].InitializeDoor(dt, randVal);</div>
+<div>}</div>
+<div>}</div>
+<div></div>
+<div>~GameManager()</div>
+<div>{</div>
+<div>delete[] doors;</div>
+<div>}</div>
+<div></div>
+<div>void PrintAllDoors()</div>
+<div>{</div>
+<div>for (int i = 0; i &lt; totalDoors; i++)</div>
+<div>{</div>
+<div>doors[i].Print();</div>
+<div>}</div>
+<div>}</div>
+<div></div>
+<div>int getOpenedDoorsCount() { return openedDoors; }</div>
+<div>int getTotalDoorsCount() { return totalDoors; }</div>
+<div>int getRemainingDoorsCount() { return totalDoors - openedDoors; }</div>
+<div></div>
+<div></div>
+<div>//doorNum ranges from 1 to MAX DOORS</div>
+<div>Door OpenDoor(int doorNum)</div>
+<div>{</div>
+<div>//doorNum-1 because the doorNum starts from 1</div>
+<div></div>
+<div>doors[doorNum - 1].SetToOpen();</div>
+<div>return doors[doorNum - 1];</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>void Start()</div>
+<div>{</div>
+<div>string playerName;</div>
+<div>cout &lt;&lt; "The Hidden Door Game | Single Player |\n";</div>
+<div>// cout &lt;&lt; " The goal of this game is to open doors one by one to reveal what's behind it. \n";</div>
+<div>cout &lt;&lt; "Enter your name: ";</div>
+<div>cin &gt;&gt; playerName;</div>
+<div>//create a player object using the player name.&nbsp;</div>
+<div>//Note that the Player's only constructor requires the player name.</div>
+<div>player = new Player(playerName);</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div></div>
+<div>void GameLoop()</div>
+<div>{</div>
+<div>int doorNumToOpen = 0;</div>
+<div></div>
+<div>while (!isGameOver)</div>
+<div>{</div>
+<div>//print how many doors are left to be opened..</div>
+<div>cout &lt;&lt; " Total doors: " &lt;&lt; totalDoors &lt;&lt; " | Remaining: " &lt;&lt; getRemainingDoorsCount() &lt;&lt; endl;</div>
+<div></div>
+<div>cout &lt;&lt; "Enter the door you'd like to open (1 to "&lt;&lt;totalDoors &lt;&lt;")&nbsp; : " &lt;&lt; endl;</div>
+<div>cin &gt;&gt; doorNumToOpen;</div>
+<div></div>
+<div>//If doorNumToOpen has already been opened, then user has to re-enter a valid door</div>
+<div>if (doors[doorNumToOpen - 1].IsOpened())</div>
+<div>{</div>
+<div>cout &lt;&lt; " That door has already been opened. Choose another door.\n";</div>
+<div>&nbsp; &nbsp; continue;</div>
+<div>}</div>
+<div></div>
+<div>//open door</div>
+<div>doors[doorNumToOpen - 1].SetToOpen();</div>
+<div>//show what was behind the door</div>
+<div>doors[doorNumToOpen - 1].RevealDoor();</div>
+<div></div>
+<div>//update player's variables</div>
+<div></div>
+<div>if (doors[doorNumToOpen - 1].GetDoorType() == SCORE)</div>
+<div>player-&gt;AddToScore(doors[doorNumToOpen - 1].GetDoorValue());</div>
+<div>else if (doors[doorNumToOpen - 1].GetDoorType() == ENEMY)</div>
+<div>player-&gt;ReduceHealth(doors[doorNumToOpen - 1].GetDoorValue());</div>
+<div></div>
+<div>//print updated player variables</div>
+<div>//print the updated score &amp; the updated health</div>
+<div>player-&gt;PrintPlayerProperties();</div>
+<div></div>
+<div>&nbsp; &nbsp; //check for game end conditions</div>
+<div></div>
+<div>//check for WIN condition</div>
+<div>//i.e. whether all doors have been opened&nbsp;</div>
+<div>if (openedDoors == totalDoors)</div>
+<div>{</div>
+<div>isGameOver = true;</div>
+<div>cout &lt;&lt; "Game Over. "&nbsp;</div>
+<div>&lt;&lt; player-&gt;getPlayerName()&nbsp;</div>
+<div>&lt;&lt; " wins the game.\n"</div>
+<div>&lt;&lt;"Final Score: "</div>
+<div>&lt;&lt;player-&gt;getScore()&lt;&lt;endl;</div>
+<div></div>
+<div>}</div>
+<div>else if (player-&gt;getHealth() &lt;= 0)</div>
+<div>{</div>
+<div>isGameOver = true;</div>
+<div>cout &lt;&lt; "Game Over. "</div>
+<div>&lt;&lt; player-&gt;getPlayerName()</div>
+<div>&lt;&lt; " lost the game.\n"</div>
+<div>&lt;&lt; "Final Score: "</div>
+<div>&lt;&lt; player-&gt;getScore() &lt;&lt; endl;</div>
+<div>}</div>
+<div></div>
+<div>//</div>
+<div></div>
+<div>&nbsp; &nbsp; }</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>};</div>
+<p></p>
+</body>
+</html>

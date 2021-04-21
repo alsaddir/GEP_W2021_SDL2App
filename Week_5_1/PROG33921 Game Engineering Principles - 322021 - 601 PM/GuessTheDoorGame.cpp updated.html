@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>// GuessTheDoorGame.cpp : Defines the entry point for the console application.</div>
+<div>//</div>
+<div></div>
+<div>#include "stdafx.h"</div>
+<div></div>
+<div>#include "GameManager.h"</div>
+<div></div>
+<div>int main()</div>
+<div>{</div>
+<div>GameManager *gMgr= new GameManager(5);&nbsp;</div>
+<div>gMgr-&gt;PrintAllDoors();</div>
+<div></div>
+<div>//initialize the game and show the main menu; get player's name etc</div>
+<div>gMgr-&gt;Start();</div>
+<div>//game loop is responsible for getting input from the user and running the overall game logic</div>
+<div>&nbsp; &nbsp; gMgr-&gt;GameLoop();</div>
+<div></div>
+<div>&nbsp; &nbsp; return 0;</div>
+<div>}</div>
+<div></div>
+</body>
+</html>

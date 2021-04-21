@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include "SpriteEx.h"</div>
+<div>#include "SDL.h"</div>
+<div>#include "SDL_image.h"</div>
+<div></div>
+<div>#include "SDL_mixer.h"&nbsp; //required for audio</div>
+<div></div>
+<div>#include &lt;vector&gt;</div>
+<div>#include "Asteroid.h"</div>
+<div>#include "Player.h"</div>
+<div>using namespace std;</div>
+<div></div>
+<div>class Game</div>
+<div>{</div>
+<div>private:</div>
+<div>bool isAppRunning;</div>
+<div>SDL_Window* sdlWindow;</div>
+<div>SDL_Renderer* sdlRenderer;</div>
+<div>const Uint8* m_iKeystates; //manages keystates</div>
+<div></div>
+<div>SDL_Texture* mainSpriteTex;//load and store the main sprite texture</div>
+<div>SDL_Texture* bgSpriteTex; //load and store background sprite tex</div>
+<div></div>
+<div></div>
+<div>SpriteEx* bg;</div>
+<div></div>
+<div>Player* player;</div>
+<div>vector&lt;Asteroid*&gt; asteroids;</div>
+<div></div>
+<div>Mix_Chunk* fireSound;</div>
+<div>Mix_Chunk* engineSound;</div>
+<div></div>
+<div>SDL_Texture* LoadTexture(const char* path);</div>
+<div>public:</div>
+<div>static Game* Instance(); //singleton instance reference</div>
+<div>SDL_Window* GetWindow() { return sdlWindow; }</div>
+<div>SDL_Renderer* GetRenderer() { return sdlRenderer; }</div>
+<div></div>
+<div>//void InitializeActor(int x, int y,int width, int height);</div>
+<div>//void InitializeSpriteActor(const char* spriteLoadPath, int initialRowNum, int totalColumns, int totalRows,</div>
+<div>// int sheetWidth, int sheetHeight,</div>
+<div>// int x, int y, int w, int h, bool animatable);</div>
+<div></div>
+<div>// void RenderActor(float r,float g, float b,float a);</div>
+<div></div>
+<div></div>
+<div>//window initialization happens here</div>
+<div>bool Init(const char* title, const int xPos,</div>
+<div>const int yPos, const int width, const int height,</div>
+<div>const int flags);</div>
+<div></div>
+<div>void InitializeGame();</div>
+<div></div>
+<div>//Is the Application running</div>
+<div>bool IsRunning();</div>
+<div>//Check for 'KeyDown' press</div>
+<div>bool KeyDown(SDL_Scancode c);</div>
+<div>bool KeyUp(SDL_Scancode c);</div>
+<div></div>
+<div>//The update loop</div>
+<div>void Update();</div>
+<div>//Handles input events</div>
+<div>void HandleEvents();</div>
+<div>//handles rendering</div>
+<div>void Render();</div>
+<div>//clean-up code</div>
+<div>void Clean();</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div>};</div>
+</body>
+</html>

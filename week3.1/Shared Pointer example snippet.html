@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>Player* rawPtr = new Player();&nbsp;&nbsp;//raw pointer</div>
+<div></div>
+<div>&nbsp;shared_ptr&lt;Player&gt; ptr(rawPtr);</div>
+<div>&nbsp;//ptr is our variable name here</div>
+<div></div>
+<div>&nbsp;//Create a second shared pointer initialized to the same object</div>
+<div></div>
+<div>&nbsp;shared_ptr&lt;Player&gt; ptr2 = ptr;</div>
+<div></div>
+<div>&nbsp;shared_ptr&lt;Player&gt; ptr2(rawPtr);&nbsp;&nbsp;</div>
+<div>////don't use this. be careful.&nbsp;</div>
+<div>////this causes a 'dangling pointer'&nbsp;</div>
+<div>// shared_ptr&lt;Player&gt; p2 = make_shared&lt;Player&gt;();</div>
+<div></div>
+<div>&nbsp;shared_ptr&lt;Player&gt; ptr3 = p2;</div>
+</body>
+</html>

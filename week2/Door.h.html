@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div></div>
+<div>#include &lt;iostream&gt;</div>
+<div>#include &lt;string&gt;</div>
+<div>using namespace std;</div>
+<div></div>
+<div></div>
+<div>enum DOOR_TYPE{ TREASURE, ENEMY};</div>
+<div></div>
+<div>class Door</div>
+<div>{</div>
+<div>private:</div>
+<div>DOOR_TYPE doorType;&nbsp;</div>
+<div>int value; //this contains either the treasure value ($$$), or damage, depending on the door type</div>
+<div></div>
+<div>public:</div>
+<div>Door() {}</div>
+<div>~Door() {}</div>
+<div></div>
+<div>void InitializeDoor(DOOR_TYPE dt, int val)</div>
+<div>{</div>
+<div>doorType = dt;</div>
+<div>value = val;</div>
+<div>}</div>
+<div></div>
+<div>void Print() {</div>
+<div>cout &lt;&lt; "Door Type: " &lt;&lt; doorType &lt;&lt; " | value: "&nbsp;</div>
+<div>&lt;&lt; value &lt;&lt; endl;&nbsp;</div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>};</div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

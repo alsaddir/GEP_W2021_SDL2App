@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div></div>
+<div>#include &lt;string&gt;</div>
+<div></div>
+<div>using namespace std;</div>
+<div></div>
+<div></div>
+<div>class Player</div>
+<div>{</div>
+<div>private:</div>
+<div>string playerName;</div>
+<div>float health;</div>
+<div>int score;</div>
+<div></div>
+<div></div>
+<div>public:</div>
+<div>Player(string pName) { playerName = pName; health = 100; }</div>
+<div>~Player() {&nbsp; }</div>
+<div></div>
+<div>/****Getters/accessors *****/</div>
+<div>string getPlayerName() { return playerName; }</div>
+<div>float&nbsp; getHealth() { return health; }</div>
+<div>int&nbsp; &nbsp; getScore() { return score; }</div>
+<div></div>
+<div>//Member functions</div>
+<div>void AddToScore(int points) { score += points; }</div>
+<div>void ReduceHealth(float h) { health -= h; }</div>
+<div>void Reset() { health = 100; score = 0; }</div>
+<div></div>
+<div></div>
+<div>};</div>
+<p></p>
+</body>
+</html>

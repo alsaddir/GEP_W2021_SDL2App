@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#include &lt;iostream&gt;</div>
+<div>#include &lt;memory&gt;</div>
+<div>#include "Player.h"</div>
+<div></div>
+<div>#include &lt;vector&gt;</div>
+<div></div>
+<div>using namespace std;</div>
+<div></div>
+<div></div>
+<div>/// &lt;summary&gt;</div>
+<div>/// Vectors example</div>
+<div>/// &lt;/summary&gt;</div>
+<div>/// &lt;returns&gt;&lt;/returns&gt;</div>
+<div>int main()</div>
+<div>{</div>
+<div>vector&lt;int&gt; scores;</div>
+<div></div>
+<div>scores.push_back(10);</div>
+<div>scores.push_back(30);</div>
+<div>scores.push_back(60);</div>
+<div></div>
+<div>//for (int i = 0; i &lt; scores.size(); i++)</div>
+<div>//cout &lt;&lt; scores[i]&lt;&lt;endl;</div>
+<div></div>
+<div>//alternative to traditional for loop</div>
+<div>//'range-based for loop' available in C++ 11 onwards</div>
+<div>for (int s : scores)</div>
+<div>cout &lt;&lt; s &lt;&lt; endl;</div>
+<div></div>
+<div>vector&lt;double&gt; totals{ 45.5,90,84.2,105.9 };</div>
+<div>for (double t : totals)</div>
+<div>cout &lt;&lt; t &lt;&lt; endl;</div>
+<div></div>
+<div>totals.pop_back();&nbsp; //removes the last element in the vector</div>
+<div>for (double t : totals)</div>
+<div>cout &lt;&lt; t &lt;&lt; endl; //will print the totals vector without 105.9</div>
+<div></div>
+<div>totals.clear();</div>
+<div></div>
+<div>//check if a vector is empty....</div>
+<div>//if (totals.size() == 0) //it is empty</div>
+<div>//cout &lt;&lt; "totals vector is empty\n";</div>
+<div>if (totals.empty())</div>
+<div>cout &lt;&lt; "total vector is empty\n";</div>
+<div></div>
+<div>//Example:: Inserting value in the vector</div>
+<div></div>
+<div>//define an iterator&nbsp;</div>
+<div>//vector&lt;int&gt;::iterator it= scores.begin()+2;</div>
+<div>//inserts 80 four times after element 2</div>
+<div>//scores.insert(it, 4, 80);</div>
+<div></div>
+<div>//alternative to using the above</div>
+<div>//this one inserts 80 just once after element 2</div>
+<div>scores.insert(scores.begin()+2,80);</div>
+<div></div>
+<div></div>
+<div>for (int s : scores)</div>
+<div>cout &lt;&lt; s &lt;&lt; endl;</div>
+<div></div>
+<div></div>
+<div>//Declare a players vector with an initial size of 3</div>
+<div>vector&lt;Player&gt; players(3);</div>
+<div></div>
+<div>players[1].score = 50;</div>
+<div></div>
+<div>for (Player p : players)</div>
+<div>cout &lt;&lt; p.ToString() &lt;&lt; endl;</div>
+<div></div>
+<div>cout &lt;&lt; players[1].ToString() &lt;&lt; endl;</div>
+<div>cout &lt;&lt; players[1].score &lt;&lt; endl;</div>
+<div>//players.clear();</div>
+<div></div>
+<div></div>
+<div>vector&lt;Player*&gt; dynamicPlayers;</div>
+<div>dynamicPlayers.push_back(new Player());</div>
+<div>dynamicPlayers.push_back(new Player());</div>
+<div>dynamicPlayers.push_back(new Player());</div>
+<div></div>
+<div>for (Player* p : dynamicPlayers)</div>
+<div>cout &lt;&lt; p-&gt;ToString() &lt;&lt; endl;</div>
+<div></div>
+<div>/*for (int i = 0; i &lt; dynamicPlayers.size(); i++)</div>
+<div>{</div>
+<div>delete dynamicPlayers[i];</div>
+<div>dynamicPlayers[i] = nullptr;</div>
+<div>}*/</div>
+<div></div>
+<div>//alternative to the above using range-based for loop::</div>
+<div>for (Player* p : dynamicPlayers)</div>
+<div>{</div>
+<div>delete p;</div>
+<div>p = nullptr;</div>
+<div>}</div>
+<div></div>
+<div>//alternative to the above using iterators:</div>
+<div>/* for (vector&lt;Player*&gt;::iterator p = dynamicPlayers.begin(); p != dynamicPlayers.end(); ++p)</div>
+<div>{</div>
+<div>delete* p;</div>
+<div>*p = nullptr;</div>
+<div>}*/</div>
+<div></div>
+<div>dynamicPlayers.clear();</div>
+<div></div>
+<div>/****** Using unique pointers in a vector *******/</div>
+<div></div>
+<div>vector&lt;unique_ptr&lt;Player&gt;&gt; uPlayers;</div>
+<div>uPlayers.push_back(make_unique&lt;Player&gt;());</div>
+<div>uPlayers.push_back(make_unique&lt;Player&gt;());</div>
+<div>uPlayers.push_back(make_unique&lt;Player&gt;());</div>
+<div></div>
+<div>//the reference &amp; to the unique_ptr avoid the copying and you can use the unique_ptr without</div>
+<div>//dereferencing</div>
+<div>for(auto const&amp;p : uPlayers)</div>
+<div>{</div>
+<div>cout &lt;&lt; p-&gt;ToString() &lt;&lt; endl;</div>
+<div>}</div>
+<div></div>
+<div></div>
+<div></div>
+<div>return 0;</div>
+<div>}</div>
+<p></p>
+</body>
+</html>

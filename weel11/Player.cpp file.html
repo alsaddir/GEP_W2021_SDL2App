@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#include "Player.h"</div>
+<div>#include "Game.h"</div>
+<div></div>
+<div>Player::Player(SDL_Texture *tex, double x, double y)</div>
+<div>: SpriteExAnimated(tex, x - 50, y - 50, 0, 1, 4, 0.1f)</div>
+<div>{</div>
+<div></div>
+<div>spriteSrcRect = { 0,0,100,100 };</div>
+<div>spriteDestRect = { (int)(m_X - 50),(int) (m_Y-50)&nbsp; ,100,100 };</div>
+<div>}</div>
+<div></div>
+<div>Player::~Player()</div>
+<div>{</div>
+<div></div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>void Player::Render()</div>
+<div>{</div>
+<div>//rendering bullets here</div>
+<div></div>
+<div>this-&gt;SpriteExAnimated::Render(); //invoke the base class's Render()</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>void Player::SetIdle()</div>
+<div>{</div>
+<div>spriteSrcRect.y = 0;</div>
+<div>m_iFrame = 0;</div>
+<div>m_iSprite = 0;</div>
+<div>}</div>
+<div></div>
+<div>void Player::Update()</div>
+<div>{</div>
+<div>//implement a rotation mechanism</div>
+<div></div>
+<div>if (Game::Instance()-&gt;KeyDown(SDL_SCANCODE_A))</div>
+<div>angle -= 6.0;</div>
+<div>else if (Game::Instance()-&gt;KeyDown(SDL_SCANCODE_D))</div>
+<div>angle += 6.0;</div>
+<div></div>
+<div></div>
+<div>}</div>
+</body>
+</html>

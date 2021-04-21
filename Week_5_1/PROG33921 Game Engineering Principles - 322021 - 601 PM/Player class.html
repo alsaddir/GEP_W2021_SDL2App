@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include &lt;iostream&gt;</div>
+<div>#include &lt;string&gt;</div>
+<div>using namespace std;</div>
+<div></div>
+<div>class Player</div>
+<div>{</div>
+<div>private:</div>
+<div>string playerName;</div>
+<div>float health;</div>
+<div>int score;</div>
+<div></div>
+<div>public:</div>
+<div>//constructor: takes in one argument to initialize player</div>
+<div>Player(string pname) { playerName = pname; health = 100; score = 0; }</div>
+<div>//destructor</div>
+<div>~Player() { }</div>
+<div></div>
+<div>string getPlayerName() { return playerName; }</div>
+<div>int getScore() { return score; }</div>
+<div>float getHealth() { return health; }</div>
+<div>//add to the score</div>
+<div>void AddToScore(int s) { score += s; }</div>
+<div>//reduce health by h amount</div>
+<div>void ReduceHealth(float h) { health -= h; }</div>
+<div></div>
+<div>void Reset() { health = 100; score = 0; }</div>
+<div></div>
+<div>void PrintPlayerProperties()</div>
+<div>{</div>
+<div>cout &lt;&lt; playerName &lt;&lt; "'s Score is "</div>
+<div>&lt;&lt; score</div>
+<div>&lt;&lt; ". Health is: "</div>
+<div>&lt;&lt; health &lt;&lt; endl;</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>};</div>
+</body>
+</html>

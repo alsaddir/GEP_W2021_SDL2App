@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include &lt;iostream&gt;</div>
+<div>#include &lt;string&gt;</div>
+<div>using namespace std;</div>
+<div></div>
+<div>enum DOOR_TYPE { SCORE, ENEMY};</div>
+<div></div>
+<div>class Door</div>
+<div>{</div>
+<div>private:&nbsp;</div>
+<div>DOOR_TYPE doorType;</div>
+<div>int value;&nbsp; &nbsp;//this contains either score or damage, depending on the door type</div>
+<div>bool isOpened=false;</div>
+<div>public:&nbsp;</div>
+<div>Door() { }</div>
+<div>~Door() { }</div>
+<div>void InitializeDoor(DOOR_TYPE dt, int val)&nbsp;</div>
+<div>{ doorType = dt;&nbsp; value = val; }</div>
+<div></div>
+<div>void Print() {&nbsp; cout &lt;&lt; "Door Type is: " &lt;&lt; doorType &lt;&lt; " | val: " &lt;&lt; value&lt;&lt;endl; }</div>
+<div></div>
+<div>int GetDoorValue() { return value; }</div>
+<div>DOOR_TYPE GetDoorType() { return doorType; }</div>
+<div></div>
+<div>//Sets the door to open state</div>
+<div>void SetToOpen()&nbsp;</div>
+<div>{ isOpened = true; }</div>
+<div></div>
+<div>//returns true if the door has already been opened</div>
+<div>bool IsOpened()&nbsp;</div>
+<div>{ return isOpened; }</div>
+<div></div>
+<div>void RevealDoor()</div>
+<div>{</div>
+<div>//if score type...</div>
+<div>//tell the user that they earned X points</div>
+<div>//else if enemy type,</div>
+<div>//tell the user that they got hit by an enemy behind the door and show how much damage was</div>
+<div>//inflicted</div>
+<div></div>
+<div>if (doorType == SCORE)</div>
+<div>{</div>
+<div>cout &lt;&lt; "You earned " &lt;&lt; value &lt;&lt; " points!!";</div>
+<div>}</div>
+<div>else if (doorType == ENEMY)</div>
+<div>{</div>
+<div>cout &lt;&lt; "You got hit by an enemy! Damage inflicted: " &lt;&lt; value;</div>
+<div>}</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>};</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#include &lt;iostream&gt;</div>
+<div>#include "Game.h"</div>
+<div>using namespace std;</div>
+<div></div>
+<div>//Singleton pattern for Game class&nbsp;</div>
+<div>//is defined as follows</div>
+<div>Game* Game::Instance()</div>
+<div>{</div>
+<div>static Game* instance = new Game();</div>
+<div>return instance;</div>
+<div>}</div>
+<div></div>
+<div>bool Game::Init(const char* title, const int xPos, const int yPos, const int width, const int height,</div>
+<div>const int flags)</div>
+<div>{</div>
+<div>//0 means success</div>
+<div>if (SDL_Init(SDL_INIT_EVERYTHING) == 0)</div>
+<div>{</div>
+<div>cout &lt;&lt; "SDL Initialization successful\n";</div>
+<div></div>
+<div>sdlWindow = SDL_CreateWindow(title, xPos, yPos, width, height, flags);</div>
+<div>if (sdlWindow == nullptr)</div>
+<div>{</div>
+<div>cout &lt;&lt; "Window initialization failed.\n";</div>
+<div>return false;</div>
+<div>}</div>
+<div>cout &lt;&lt; "Window successfully created.\n";</div>
+<div>sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, 0);</div>
+<div>if (sdlRenderer == nullptr)</div>
+<div>{</div>
+<div>cout &lt;&lt; "renderer initialization failed.\n";</div>
+<div>return false;</div>
+<div>}</div>
+<div>}</div>
+<div>else</div>
+<div>{</div>
+<div>cout &lt;&lt; "SDL Initialization failed\n";</div>
+<div>return false;</div>
+<div>}</div>
+<div></div>
+<div>if (Mix_Init(MIX_INIT_MP3) == 0)</div>
+<div>{</div>
+<div>cout &lt;&lt; "Mixer init failed\n";</div>
+<div>return false;</div>
+<div>}</div>
+<div>else</div>
+<div>{</div>
+<div>Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);</div>
+<div>Mix_AllocateChannels(16);</div>
+<div>fireSound = Mix_LoadWAV("Fire.wav");</div>
+<div>engineSound = Mix_LoadWAV("Engines.wav");</div>
+<div>Mix_VolumeChunk(fireSound, 50);</div>
+<div>Mix_VolumeChunk(engineSound, 50);</div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>m_iKeystates = SDL_GetKeyboardState(nullptr);</div>
+<div>isAppRunning = true;</div>
+<div></div>
+<div></div>
+<div>return true;</div>
+<div>}</div>
+<div></div>
+<div>void Game::InitializeGame()</div>
+<div>{</div>
+<div>bgSpriteTex = LoadTexture("background.png");</div>
+<div>mainSpriteTex = LoadTexture("Sprites.png");</div>
+<div></div>
+<div>SDL_Rect bgSrcRect;</div>
+<div>bgSrcRect.x = bgSrcRect.y = 0;</div>
+<div>SDL_QueryTexture(bgSpriteTex, NULL, NULL, &amp;bgSrcRect.w, &amp;bgSrcRect.h);</div>
+<div></div>
+<div>SDL_Rect bgDestRect;</div>
+<div>bgDestRect.x = bgDestRect.y = 0;</div>
+<div>SDL_GetWindowSize(sdlWindow, &amp;bgDestRect.w, &amp;bgDestRect.h);</div>
+<div></div>
+<div>bg = new SpriteEx(bgSpriteTex, bgSrcRect, bgDestRect);</div>
+<div></div>
+<div></div>
+<div>SDL_Rect asteroidSrcRect;</div>
+<div>asteroidSrcRect.x = 124;</div>
+<div>asteroidSrcRect.y = 0;</div>
+<div>asteroidSrcRect.w = asteroidSrcRect.h = 66;//66 pixelsx66 pixels is each cell's dimension</div>
+<div></div>
+<div>SDL_Rect asteroidDestRect;</div>
+<div>asteroidDestRect.w = asteroidDestRect.h = 66;</div>
+<div></div>
+<div>for (int i = 0; i &lt; 5; i++)</div>
+<div>{</div>
+<div>//generate a random speed</div>
+<div>float r = (1 - rand() % 2 * 2) * (rand() % 6 + 1);</div>
+<div></div>
+<div>asteroidDestRect.x = (rand() % 700) + 1; //generate between 1 and 700</div>
+<div>asteroidDestRect.y = (rand() % 600) + 1;//generate between 1 and 600</div>
+<div></div>
+<div>Asteroid* ast = new Asteroid(mainSpriteTex, asteroidSrcRect, asteroidDestRect, r);</div>
+<div>asteroids.push_back(ast);</div>
+<div>&nbsp; &nbsp; }</div>
+<div></div>
+<div>player = new Player(mainSpriteTex, bgDestRect.w*0.5, bgDestRect.h - 100);</div>
+<div>}</div>
+<div></div>
+<div>SDL_Texture* Game::LoadTexture(const char* path)</div>
+<div>{</div>
+<div>SDL_Surface *surface = IMG_Load(path);</div>
+<div>return SDL_CreateTextureFromSurface(sdlRenderer, surface);</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>&nbsp;</div>
+<div>bool Game::IsRunning()</div>
+<div>{</div>
+<div>return isAppRunning;</div>
+<div>}</div>
+<div></div>
+<div>//check whether a specific key, passed as argument 'c'</div>
+<div>//is pressed down</div>
+<div>bool Game::KeyDown(SDL_Scancode c)</div>
+<div>{</div>
+<div>if (m_iKeystates == nullptr)</div>
+<div>return false;</div>
+<div></div>
+<div>if (m_iKeystates[c] == 1)</div>
+<div>return true;</div>
+<div>else return false;</div>
+<div>}</div>
+<div></div>
+<div>bool Game::KeyUp(SDL_Scancode c)</div>
+<div>{</div>
+<div>if (m_iKeystates == nullptr)</div>
+<div>return false;</div>
+<div></div>
+<div>if (m_iKeystates[c] == 0)</div>
+<div>return true;</div>
+<div>else return false;</div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>void Game::Update()</div>
+<div>{</div>
+<div>if (player) player-&gt;Update();</div>
+<div></div>
+<div>for (int i = 0; i &lt; asteroids.size(); i++)</div>
+<div>asteroids[i]-&gt;Update();</div>
+<div></div>
+<div>if (KeyDown(SDL_SCANCODE_SPACE) &amp;&amp; player)</div>
+<div>{</div>
+<div>//to do:: launch a missile...</div>
+<div>Mix_PlayChannel(-1, fireSound, 0); //-1 means we ask the mixer to play on the first available channel. the third argument: 0, means we play it just once (no looping)</div>
+<div>player-&gt;SpawnBullet();</div>
+<div>}</div>
+<div>//Play engine sound....</div>
+<div>if (KeyDown(SDL_SCANCODE_W))</div>
+<div>{</div>
+<div>if(!Mix_Playing(15)) //if channel 15 is not playing</div>
+<div>&nbsp; &nbsp; &nbsp; Mix_PlayChannel(15, engineSound, -1);&nbsp; &nbsp;//-1 because we want to loop the sound...</div>
+<div></div>
+<div>}</div>
+<div>if (KeyUp(SDL_SCANCODE_W))</div>
+<div>{</div>
+<div>if (player)</div>
+<div>{</div>
+<div>Mix_FadeOutChannel(15, 250); //250 is in milliseconds.. the time over which the audio will fade out...</div>
+<div>player-&gt;SetIdle();</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>void Game::HandleEvents()</div>
+<div>{</div>
+<div>SDL_Event event;</div>
+<div>if (SDL_PollEvent(&amp;event))</div>
+<div>{</div>
+<div>switch (event.type)</div>
+<div>{</div>
+<div>case SDL_QUIT:</div>
+<div>isAppRunning = false;</div>
+<div>break;</div>
+<div></div>
+<div>case SDL_MOUSEBUTTONUP:</div>
+<div>{</div>
+<div>if (event.button.button == SDL_BUTTON_LEFT &amp;&amp; player)</div>
+<div>{</div>
+<div>//do something...&nbsp; such as fire a bullet/missile</div>
+<div>//and play sound</div>
+<div>Mix_PlayChannel(-1, fireSound, 0); //-1 means we ask the mixer to play on the first available channel. the third argument: 0, means we play it just once (no looping)</div>
+<div>player-&gt;SpawnBullet();</div>
+<div>}</div>
+<div>}</div>
+<div></div>
+<div>}</div>
+<div>}</div>
+<div>}</div>
+<div></div>
+<div>void Game::Render()</div>
+<div>{</div>
+<div>SDL_SetRenderDrawColor(sdlRenderer, 255, 255, 255, 255); //set background window color</div>
+<div>SDL_RenderClear(sdlRenderer); //clear the screen</div>
+<div>&nbsp; //SDL_SetRender</div>
+<div></div>
+<div>bg-&gt;Render();</div>
+<div></div>
+<div>if (player) player-&gt;Render();</div>
+<div></div>
+<div>for (int i = 0; i &lt; asteroids.size(); i++)</div>
+<div>asteroids[i]-&gt;Render();</div>
+<div></div>
+<div>SDL_RenderPresent(sdlRenderer); //draw the current frame</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>void Game::Clean()</div>
+<div>{</div>
+<div>cout &lt;&lt; "Cleaning up and shutting down engine...\n";</div>
+<div>SDL_DestroyWindow(sdlWindow);</div>
+<div>SDL_DestroyRenderer(sdlRenderer);</div>
+<div>SDL_Quit();</div>
+<div></div>
+<div>}</div>
+<div></div>
+</body>
+</html>

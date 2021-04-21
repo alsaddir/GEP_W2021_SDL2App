@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include "SDL.h"</div>
+<div>#include &lt;iostream&gt;</div>
+<div></div>
+<div>//this base class will render just one static sprite</div>
+<div>class SpriteEx</div>
+<div>{</div>
+<div>protected:</div>
+<div>SDL_Rect spriteSrcRect; //which part of the spritesheet we would like to render</div>
+<div>SDL_Rect spriteDestRect; //the position on the screen we would like to render this sprite at</div>
+<div>SDL_Texture *texture;</div>
+<div>double angle;//the angle to display sprite (in degrees)</div>
+<div>double m_X, //x coord</div>
+<div>m_Y, //Y coord</div>
+<div>m_DX, //the change in x coord</div>
+<div>m_DY, //the change in Y coordinate</div>
+<div>m_dSpeed; //speed in pixels to move per change</div>
+<div></div>
+<div>public:</div>
+<div>SpriteEx() {}</div>
+<div>SpriteEx(SDL_Texture *tex, SDL_Rect srcRect, SDL_Rect dstRect)</div>
+<div>{</div>
+<div>texture = tex;</div>
+<div>spriteSrcRect = srcRect;</div>
+<div>spriteDestRect = dstRect;</div>
+<div>}</div>
+<div></div>
+<div>void Render();</div>
+<div></div>
+<div>void UpdateDestRect();</div>
+<div></div>
+<div>};</div>
+<div></div>
+<div></div>
+<div>//this is the animated version of the Sprite class</div>
+<div>class SpriteExAnimated : public SpriteEx</div>
+<div>{</div>
+<div>protected:</div>
+<div>int m_iSprite = 0, //which sprite to display for animation</div>
+<div>m_iSpriteMax, //how many sprites in total for this animation</div>
+<div>m_iFrame = 0, //which frame we are at now</div>
+<div>m_iFrameMax; //number of frames for this sprite</div>
+<div></div>
+<div>public:</div>
+<div>void Animate();</div>
+<div></div>
+<div>SpriteExAnimated(SDL_Texture* tex, double x, double y,</div>
+<div>double a, int frameMax, int spriteMax, double speed);</div>
+<div></div>
+<div></div>
+<div>};</div>
+</body>
+</html>

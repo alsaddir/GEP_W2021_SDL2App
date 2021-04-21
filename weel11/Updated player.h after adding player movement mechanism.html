@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div></div>
+<div>#include "SpriteEx.h"</div>
+<div>#include "Bullet.h"</div>
+<div>#include &lt;vector&gt;</div>
+<div>using namespace std;</div>
+<div></div>
+<div></div>
+<div>class Player : protected SpriteExAnimated</div>
+<div>{</div>
+<div>private:</div>
+<div></div>
+<div>vector&lt;Bullet*&gt; m_vBullets;</div>
+<div>void UpdateBullets();</div>
+<div></div>
+<div>double m_velX = 0,</div>
+<div>m_velY = 0,</div>
+<div>m_velMax = 10;</div>
+<div></div>
+<div>void MoveForward();</div>
+<div>void UpdatePlayer();</div>
+<div></div>
+<div>public :</div>
+<div>Player(SDL_Texture *tex, double x, double y);</div>
+<div>~Player();</div>
+<div>void Update();</div>
+<div>void Render();</div>
+<div>void SetIdle();</div>
+<div>void SpawnBullet();&nbsp;</div>
+<div></div>
+<div></div>
+<div>};</div>
+</body>
+</html>

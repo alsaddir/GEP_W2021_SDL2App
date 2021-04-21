@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#include "Game.h"</div>
+<div></div>
+<div></div>
+<div>void SpriteEx::Render()</div>
+<div>{</div>
+<div>if (SDL_RenderCopyEx(Game::Instance()-&gt;GetRenderer(), texture,</div>
+<div>&amp;spriteSrcRect, &amp;spriteDestRect,angle,nullptr,SDL_FLIP_NONE) == 0)</div>
+<div>std::cout &lt;&lt; "Success...\n";</div>
+<div>else</div>
+<div>std::cout &lt;&lt; "Failed..\n";</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>SpriteExAnimated::SpriteExAnimated(SDL_Texture* tex, double x, double y,</div>
+<div>double a, int frameMax, int spriteMax, double speed)</div>
+<div>{</div>
+<div></div>
+<div>texture = tex;</div>
+<div>m_X = x;</div>
+<div>m_Y = y;</div>
+<div>angle = a;</div>
+<div>m_iFrameMax = frameMax;</div>
+<div>m_iSpriteMax = spriteMax;</div>
+<div>m_dSpeed = speed;</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>void SpriteExAnimated::Animate()</div>
+<div>{</div>
+<div>m_iFrame++;</div>
+<div></div>
+<div>if (m_iFrame == m_iFrameMax)</div>
+<div>{</div>
+<div>m_iFrame = 0;</div>
+<div>m_iSprite++;</div>
+<div>if (m_iSprite == m_iSpriteMax)</div>
+<div>m_iSprite = 0;</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div>}</div>
+<div></div>
+<div>void SpriteEx::UpdateDestRect()</div>
+<div>{</div>
+<div>spriteDestRect.x = (int)(m_X - spriteDestRect.w*0.5f);</div>
+<div>spriteDestRect.y = (int)(m_Y - spriteDestRect.h*0.5f);</div>
+<div>}</div>
+</body>
+</html>

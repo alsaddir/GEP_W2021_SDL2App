@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include "Door.h"</div>
+<div></div>
+<div>class GameManager</div>
+<div>{</div>
+<div></div>
+<div>private:</div>
+<div>//dynamically allocated array of doors</div>
+<div>Door* doors;&nbsp;</div>
+<div>//how many doors in the game?</div>
+<div>int totalDoors;</div>
+<div>//how many doors opened?</div>
+<div>int openedDoors;</div>
+<div></div>
+<div>public:</div>
+<div>GameManager(int totalDoorsToGenerate);</div>
+<div>~GameManager();</div>
+<div></div>
+<div>void PrintAllDoors();</div>
+<div></div>
+<div>//accessors</div>
+<div>int getOpenedDoorsCount() { return openedDoors; }</div>
+<div>int getTotalDoorsCount() { return totalDoors; }</div>
+<div>int getRemainingDoorsCount() { return totalDoors - openedDoors; }</div>
+<div></div>
+<div></div>
+<div>};</div>
+</body>
+</html>

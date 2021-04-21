@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>// Week3_UniquePointerExample.cpp : Defines the entry point for the console application.</div>
+<div>//</div>
+<div></div>
+<div>#include "Player.h"</div>
+<div>#include &lt;iostream&gt;</div>
+<div>#include &lt;memory&gt;</div>
+<div>#include &lt;string&gt;&nbsp;</div>
+<div></div>
+<div>using namespace std;</div>
+<div></div>
+<div></div>
+<div>int main()</div>
+<div>{</div>
+<div>unique_ptr&lt;Player&gt; p1 = make_unique&lt;Player&gt;();&nbsp; //our first player</div>
+<div>unique_ptr&lt;Player&gt; p2 = make_unique &lt;Player&gt;(); //player 2</div>
+<div></div>
+<div>unique_ptr&lt;Player[]&gt; uPlayerArray = make_unique&lt;Player[]&gt;(2);&nbsp; //player 3 and 4 as part of an array</div>
+<div>unique_ptr&lt;Player&gt; p5 = make_unique&lt;Player&gt;(); //player 5</div>
+<div>unique_ptr&lt;Player&gt; p6 = make_unique&lt;Player&gt;(); //player 6</div>
+<div></div>
+<div>cout &lt;&lt; p5-&gt;ToString();&nbsp; //what should be the output??</div>
+<div>p5 = move(p6);&nbsp;&nbsp;</div>
+<div>cout &lt;&lt; p5-&gt;ToString(); //what should be the output??</div>
+<div></div>
+<div></div>
+<div></div>
+<div>&nbsp; &nbsp; return 0;</div>
+<div>}</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div>#pragma once</div>
+<div>#include &lt;cstdlib&gt;</div>
+<div>#include &lt;ctime&gt;</div>
+<div></div>
+<div>namespace GEP</div>
+<div>{</div>
+<div>static bool isFirstTimeSeed = false;</div>
+<div></div>
+<div>int RandomRange(int minRange, int maxRange)</div>
+<div>{</div>
+<div>if (!isFirstTimeSeed)</div>
+<div>{</div>
+<div>srand(time(0));</div>
+<div>isFirstTimeSeed = true;</div>
+<div>}</div>
+<div></div>
+<div>//returns a random number between minRange and maxRange</div>
+<div>//inclusive..&nbsp;</div>
+<div>return (rand() % (maxRange - minRange + 1)) + minRange;</div>
+<div></div>
+<div>}</div>
+<div></div>
+<div></div>
+<div></div>
+<div>}</div>
+</body>
+</html>
